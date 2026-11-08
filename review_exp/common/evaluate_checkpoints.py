@@ -58,7 +58,7 @@ def build_commands(args, entry, output):
                "--expected", entry["expected"], "--output", str(output / f"{entry['model_id']}.npz")]
     extras = shlex.split(args.collector_extra_args) + entry.get("collector_args", [])
     # These keys encode experiment identity and may not be overridden by convenience extras.
-    protected = {"--checkpoint", "--init_checkpoint", "--init-checkpoint", "--query-manifest", "--query_manifest",
+    protected = {"--checkpoint", "--init_checkpoint", "--init-checkpoint", "--query-manifest", "--query_manifest", "--output",
                  "--model-id", "--model_id", "--expected"}
     if any(token.split("=", 1)[0] in protected for token in extras):
         raise ValueError("collector extra arguments cannot override checkpoint/query/output/model identity.")
@@ -114,7 +114,7 @@ def main(argv=None):  # 6 个用法 (5 个动态)
         subprocess.run(evaluate, cwd=REPO_ROOT, check=True)
         result = output / f"{entry['model_id']}.result.json"
         report_paths.append(str(result))
-        groups.setdefault(str(entry.get("group", "Unspecified")), []).append(str(result))
+        groups.setdefault(str(entry.get("group", "unspecified")), []).append(str(result))
     from review_exp.common.verifier import summarize_reports, write_json
     write_json(output / "summary.json", summarize_reports(report_paths))
     write_json(output / "summary_by_group.json", {

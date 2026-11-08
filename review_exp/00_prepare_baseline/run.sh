@@ -59,3 +59,9 @@ run_stage() {
     accelerate launch "${launch[@]}" -m review_exp.00_prepare_baseline.prepare_baseline \
         "${common[@]}" "${stage_args[@]}" "$@"
 }
+
+case "$STAGE" in
+  all) for current in victim rank prepare poisoned benign; do run_stage "$current" "$@"; done ;;
+  victim|rank|prepare|poisoned|benign) run_stage "$STAGE" "$@" ;;
+  *) printf 'Usage: %s [all|victim|rank|prepare|poisoned|benign] [extra Python arguments]\n' "$0" >&2; exit 2 ;;
+esac

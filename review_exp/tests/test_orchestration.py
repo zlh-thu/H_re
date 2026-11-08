@@ -25,7 +25,7 @@ class Rows:  # 3 用法
     def __len__(self):
         return len(self.labels)
 
-    def __getitem__(self, key : (__eq__) ):
+    def __getitem__(self, key):
         return self.labels if key == "labels" else {"labels": self.labels[key]}
 
     def select(self, indices):  # 24 个用法 (24 个动态)
@@ -116,7 +116,7 @@ class ShellHandoverTests(unittest.TestCase):
             stub = root / "accelerate"
             # Generated test fixture only; no project files are modified here.
             stub.write_text(f"#!{sys.executable}\nimport json,os,sys\n"
-                            "with open(os.environ['CALL_LOG'],'a') as f: f.write(json.dumps(sys.argv[1:])+'\n')\n")
+                            "with open(os.environ['CALL_LOG'],'a') as f: f.write(json.dumps(sys.argv[1:])+'\\n')\n")
             stub.chmod(0o755)
             log = root / "calls.jsonl"
             env = dict(os.environ, PATH=str(root) + os.pathsep + os.environ["PATH"], CALL_LOG=str(log),

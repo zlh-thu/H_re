@@ -30,7 +30,7 @@ def validate_indices(values, size):
     return values
 
 def label_digest(labels):
-    return hashlib.sha256(json.dumps(labels, separators=(",", ":")).encode()).hexdigest
+    return hashlib.sha256(json.dumps(labels, separators=(",", ":")).encode()).hexdigest()
 
 def protocol_indices(labels, ordered_indices, poison_fraction, drop_fraction, target_label, supplied=None):
     """Select before filtering target labels, exactly as the original cube protocol."""
@@ -138,7 +138,7 @@ def rank(args):
         target.mkdir(parents=True, exist_ok=True)
         # String IDs and dict format intentionally match the existing load_order API.
         np.save(target / "loss_order.npy", {str(i): float(rows[i]) for i in range(len(raw))})
-        labels = _labels(rows)
+        labels = _labels(raw)
         write_json(target / "losses.json", {
             "schema": "holmes_loss_ranking_v1", "dataset_name": args.dataset_name,
             "dataset_size": len(raw), "num_train": len(raw), "split": "train",

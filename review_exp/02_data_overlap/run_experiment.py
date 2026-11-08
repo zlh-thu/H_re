@@ -16,7 +16,7 @@ from review_exp.common.train import add_training_arguments, train_model
 
 selection = importlib.import_module("review_exp.02_data_overlap.selection")
 
-def image_hash(row : (__getitem__, sha256)):  # 2 用法
+def image_hash(row):  # 2 用法
     image = row["image"].convert("RGB")
     return hashlib.sha256(f"{image.width}:{image.height}:RGB:".encode() + image.tobytes()).hexdigest()
 
@@ -24,7 +24,7 @@ def load_extra_pool(args, bundle):  # 1 个用法
     from datasets import DatasetDict, load_from_disk
     if not args.extra_pool_dir or not args.extra_pool_provenance:
         raise ValueError("Overlap below 1 needs --extra_pool_dir and --extra_pool_provenance. Never partition D and call it disjoint from V.")
-    provenance = selection.validate_pool_provenance(json.loads(Path(args.extra_pool_provenance).read_text(encoding="utf-8")))
+    provenance = selection.validate_pool_provenance(json.loads(Path(args.extra_pool_provenance).read_text(encoding="utf-8")), bundle["labels"])
     pool = load_from_disk(args.extra_pool_dir)
     if isinstance(pool, DatasetDict):
         if set(pool) != {"train"}:

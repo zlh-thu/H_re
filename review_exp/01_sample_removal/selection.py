@@ -32,7 +32,7 @@ def random_keep_matching_classes(labels, reference_keep, seed):  # 3 个用法 (
         result.extend(rng.sample(indices, counts.get(label, 0)))
     return sorted(result)
 
-def validate_loss_mapping(value : (__contains__) , num_train):  # 2 个用法 (2 个动态)
+def validate_loss_mapping(value, num_train):  # 2 个用法 (2 个动态)
     """Accept dense losses, id/loss rows, or the new losses.json payload."""
     if isinstance(value, dict) and "losses" in value:
         if "num_train" in value and value["num_train"] != num_train:

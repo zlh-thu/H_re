@@ -101,7 +101,7 @@ def train_model(args, *, dataset_override=None, selection_metadata=None, data_bu
                 prediction, target = accelerator.gather_for_metrics((prediction, batch["labels"]))
                 correct += int((prediction == target).sum())
                 total += len(target)
-        epoch_loss = accelerator.reduce(torch.tensor(loss_total / max(1, batches), device=accelerator.device), reduction="mean")
+        epoch_loss = accelerator.reduce(torch.tensor(loss_total / max(1, batches), device=accelerator.device), reduction="mean").item()
         record = {"epoch": epoch + 1, "optimizer_steps": completed,
                   "train_loss": epoch_loss, "validation_accuracy": correct / total if total else None,
                   "validation_count": total}

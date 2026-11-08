@@ -52,8 +52,8 @@ def load_data(args : (copy) ):  # 7 用法
     # Stop the old loader's unseeded fallback; split explicitly after loading.
     requested_split = options.train_val_split
     options.train_val_split = 0
-    options.use_pseudo_logits = False
-    options.use_pseudo_target = False
+    options.use_preudo_logits = False
+    options.use_preudo_target = False
     if options.use_pt_imagefolder:
         # The old ImageFolder branch loads HF rows but later accesses the
         # torchvision-only `.classes` attribute. Keep its transforms, fix only

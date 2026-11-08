@@ -21,7 +21,7 @@ def main():  # 6 个用法 (5 个动态)
             super().__init__()
             self.classifier = torch.nn.Linear(12, 4)
 
-        def forward(self, pixels : {flatten} ):
+        def forward(self, pixels):
             return self.classifier(pixels.flatten(1))
 
     rows = [{"pixel_values": torch.full((3, 2, 2), float(i) / 8), "labels": i % 4, "id": i}
