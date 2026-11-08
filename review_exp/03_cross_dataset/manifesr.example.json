@@ -1,0 +1,61 @@
+{
+  "description": "Only valid if the two independently trained B models already share this exact ten-class semantic space. Replace every path and provenance value with real evidence.",
+  "directions": [
+    {
+      "name": "cifar_verifier_tests_tiny_B",
+      "verifier": "../artifacts/verifier_cifar",
+      "poison": "../artifacts/cifar_queries/P.npz",
+      "suspect": "../artifacts/cifar_queries/B_tiny_on_cifar_queries.npz",
+      "model_id": "B_tiny_independent_seed42",
+      "verification_domain": "cifar10",
+      "suspect_training_domain": "tinyimagenet",
+      "class_names": [
+        "airplane",
+        "automobile",
+        "bird",
+        "cat",
+        "deer",
+        "dog",
+        "frog",
+        "horse",
+        "ship",
+        "truck"
+      ],
+      "independence": {
+        "trained_independently": true,
+        "uses_victim_outputs": false,
+        "label_source_role": "external_independent",
+        "label_source": "REPLACE: exact independent annotation or external teacher provenance, not either protected V",
+        "training_checkpoint": "REPLACE: source checkpoint path, seed and training-data evidence"
+      }
+    },
+    {
+      "name": "tiny_verifier_tests_cifar_B",
+      "verifier": "../artifacts/verifier_tiny",
+      "poison": "../artifacts/tiny_queries/P.npz",
+      "suspect": "../artifacts/tiny_queries/B_cifar_on_tiny_queries.npz",
+      "model_id": "B_cifar_independent_seed42",
+      "verification_domain": "tinyimagenet",
+      "suspect_training_domain": "cifar10",
+      "class_names": [
+        "airplane",
+        "automobile",
+        "bird",
+        "cat",
+        "deer",
+        "dog",
+        "frog",
+        "horse",
+        "ship",
+        "truck"
+      ],
+      "independence": {
+        "trained_independently": true,
+        "uses_victim_outputs": false,
+        "label_source_role": "ground_truth",
+        "label_source": "CIFAR-10 ground-truth labels; REPLACE with dataset/version and training split evidence",
+        "training_checkpoint": "REPLACE: source checkpoint path, seed and training-data evidence"
+      }
+    }
+  ]
+}

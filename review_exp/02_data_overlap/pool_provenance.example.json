@@ -1,0 +1,8 @@
+{
+  "source": "REPLACE: original source/version and reason these are same-distribution extra training images",
+  "label_source": "ground_truth",
+  "in_distribution": true,
+  "victim_disjoint": true,
+  "not_test_data": true,
+  "class_names": ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"]
+}
